@@ -14,10 +14,15 @@ def on_connect(mqttc, obj, flags, rc):
     print("rc: " + str(rc), flush=True)
 
 def on_message(mqttc, obj, msg):
-    print("message received ", str(msg.payload.decode("utf-8")), flush=True)
-    print("message topic=", msg.topic, flush=True)
-    print("message qos=", msg.qos, flush=True)
-    print("message retain flag=", msg.retain, flush=True)
+    #print("message received ", str(msg.payload.decode("utf-8")), flush=True)
+    array = bytearray(msg.payload)
+    print("message received [0]: ", array[0], flush=True)
+    print("message received len: ", len(array), flush=True)
+
+    print("message topic =", msg.topic, flush=True)
+    print("message qos =", msg.qos, flush=True)
+    print("message retain flag =", msg.retain, flush=True)
+    print("**********************************************", flush=True)
 
 def on_subscribe(mqttc, obj, mid, granted_qos):
     print("Subscribed: " + str(mid) + " " + str(granted_qos), flush=True)

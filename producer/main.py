@@ -31,35 +31,15 @@ mqttc.connect(broker_address, broker_port, 60)
 
 mqttc.loop_start()
 
-#if __name__ == "__main__":
-#    print("dddddddddddddddddddddddddddddddddd")
-
 for i in range(0, 10):
     print("---- " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + " ----", flush=True)
-    mqttc.publish(topic_producer_default, "55555555555555555555555555555555555555", qos=0)
+    values = [i for q in range(0,15)]
+    array = bytearray(values)
+    mqttc.publish(topic_producer_default, array, qos=0)
 
 #while True:
-#    print("11111111111111111111111111111", flush=True)
+#    print("1", flush=True)
 #    time.sleep(1)
-
 
 mqttc.disconnect()
 mqttc.loop_stop()
-
-##
-#last_idle = last_total = 0
-#while True:
-#    with open('/proc/stat') as f:
-#        fields = [float(column) for column in f.readline().strip().split()[1:]]
-#    idle, total = fields[3], sum(fields)
-#    idle_delta, total_delta = idle - last_idle, total - last_total
-#    last_idle, last_total = idle, total
-#    utilisation = 100.0 * (1.0 - idle_delta / total_delta)
-
-#    print('%5.1f%%' % utilisation)
-#    mqttc.publish(topic_cpu_utilisation, utilisation, qos=0)
-#    time.sleep(5)
-
-#mqttc.disconnect()
-
-#mqttc.loop_stop()
